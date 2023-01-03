@@ -48,6 +48,7 @@
     "@types/jest": "^29.2.5"
   },
   "scripts": {
+    "assemble": "node build/assemble.js",
     "build": "au build-plugin --env prod",
     "start": "au run",
     "watch": "au build-plugin --watch",
