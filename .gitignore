@@ -35,3 +35,5 @@ node_modules
 /dev-app/environment.ts
 /dist
 /test/coverage-jest
+
+.history
