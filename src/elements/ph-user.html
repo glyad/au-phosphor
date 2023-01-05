@@ -1,0 +1,28 @@
+<template>
+  <svg ref="__svg"
+        xmlns="https://www.w3.org/2000/svg"
+        width="${size}"
+        height="${size}"
+        fill="${color}"
+        viewBox="0 0 256 256">
+      <g if.bind="isBold">
+        <circle cx="128" cy="96" r="64" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><path d="M31,216a112,112,0,0,1,194,0" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/>
+      </g>
+      <g if.bind="isDuotone">
+        <circle cx="128" cy="96" r="64" opacity="0.2"/><circle cx="128" cy="96" r="64" fill="none" stroke="${color}" stroke-miterlimit="10" stroke-width="16"/><path d="M31,216a112,112,0,0,1,194,0" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+      </g>
+      <g if.bind="isFill">
+        <path d="M231.9,212a120.7,120.7,0,0,0-67.1-54.2,72,72,0,1,0-73.6,0A120.7,120.7,0,0,0,24.1,212a7.7,7.7,0,0,0,0,8,7.8,7.8,0,0,0,6.9,4H225a7.8,7.8,0,0,0,6.9-4A7.7,7.7,0,0,0,231.9,212Z"/>
+      </g>
+      <g if.bind="isLight">
+        <circle cx="128" cy="96" r="64" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><path d="M31,216a112,112,0,0,1,194,0" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/>
+      </g>
+      <g if.bind="isThin">
+        <circle cx="128" cy="96" r="64" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/><path d="M31,216a112,112,0,0,1,194,0" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+      </g>
+      <g if.bind="isRegular">
+        <circle cx="128" cy="96" r="64" fill="none" stroke="${color}" stroke-miterlimit="10" stroke-width="16"/><path d="M31,216a112,112,0,0,1,194,0" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+      </g>
+  </svg>
+</template>    
+  

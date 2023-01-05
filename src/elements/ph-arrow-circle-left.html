@@ -1,0 +1,28 @@
+<template>
+  <svg ref="__svg"
+        xmlns="https://www.w3.org/2000/svg"
+        width="${size}"
+        height="${size}"
+        fill="${color}"
+        viewBox="0 0 256 256">
+      <g if.bind="isBold">
+        <circle cx="128" cy="128" r="96" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><polyline points="121.9 161.9 88 128 121.9 94.1" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><line x1="168" y1="128" x2="88" y2="128" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/>
+      </g>
+      <g if.bind="isDuotone">
+        <circle cx="128" cy="128" r="96" opacity="0.2"/><circle cx="128" cy="128" r="96" fill="none" stroke="${color}" stroke-miterlimit="10" stroke-width="16"/><polyline points="121.9 161.9 88 128 121.9 94.1" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="168" y1="128" x2="88" y2="128" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+      </g>
+      <g if.bind="isFill">
+        <path d="M128,24A104,104,0,1,0,232,128,104.2,104.2,0,0,0,128,24Zm40,112H107.3l20.3,20.3a8,8,0,0,1,0,11.3,7.8,7.8,0,0,1-5.7,2.3,7.6,7.6,0,0,1-5.6-2.3L82.4,133.7a8.7,8.7,0,0,1-1.8-2.6,8.3,8.3,0,0,1,0-6.2,8.7,8.7,0,0,1,1.8-2.6l33.9-33.9a8,8,0,0,1,11.3,11.3L107.3,120H168a8,8,0,0,1,0,16Z"/>
+      </g>
+      <g if.bind="isLight">
+        <circle cx="128" cy="128" r="96" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><polyline points="121.9 161.9 88 128 121.9 94.1" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/><line x1="88" y1="128" x2="168" y2="128" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/>
+      </g>
+      <g if.bind="isThin">
+        <circle cx="128" cy="128" r="96" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/><polyline points="121.9 161.9 88 128 121.9 94.1" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/><line x1="88" y1="128" x2="168" y2="128" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+      </g>
+      <g if.bind="isRegular">
+        <circle cx="128" cy="128" r="96" fill="none" stroke="${color}" stroke-miterlimit="10" stroke-width="16"/><polyline points="121.9 161.9 88 128 121.9 94.1" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/><line x1="88" y1="128" x2="168" y2="128" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+      </g>
+  </svg>
+</template>    
+  

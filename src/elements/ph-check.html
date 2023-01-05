@@ -1,0 +1,28 @@
+<template>
+  <svg ref="__svg"
+        xmlns="https://www.w3.org/2000/svg"
+        width="${size}"
+        height="${size}"
+        fill="${color}"
+        viewBox="0 0 256 256">
+      <g if.bind="isBold">
+        <polyline points="216 72 104 184 48 128" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/>
+      </g>
+      <g if.bind="isDuotone">
+        <polyline points="216 72 104 184 48 128" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+      </g>
+      <g if.bind="isFill">
+        <path d="M104,192a8.5,8.5,0,0,1-5.7-2.3l-56-56a8.1,8.1,0,0,1,11.4-11.4L104,172.7,210.3,66.3a8.1,8.1,0,0,1,11.4,11.4l-112,112A8.5,8.5,0,0,1,104,192Z"/>
+      </g>
+      <g if.bind="isLight">
+        <polyline points="216 72 104 184 48 128" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/>
+      </g>
+      <g if.bind="isThin">
+        <polyline points="216 72 104 184 48 128" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+      </g>
+      <g if.bind="isRegular">
+        <polyline points="216 72 104 184 48 128" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+      </g>
+  </svg>
+</template>    
+  

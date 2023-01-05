@@ -1,0 +1,28 @@
+<template>
+  <svg ref="__svg"
+        xmlns="https://www.w3.org/2000/svg"
+        width="${size}"
+        height="${size}"
+        fill="${color}"
+        viewBox="0 0 256 256">
+      <g if.bind="isBold">
+        <circle cx="128" cy="128" r="96" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/>
+      </g>
+      <g if.bind="isDuotone">
+        <circle cx="128" cy="128" r="96" opacity="0.2"/><circle cx="128" cy="128" r="96" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+      </g>
+      <g if.bind="isFill">
+        <circle cx="128" cy="128" r="104"/>
+      </g>
+      <g if.bind="isLight">
+        <circle cx="128" cy="128" r="96" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="12"/>
+      </g>
+      <g if.bind="isThin">
+        <circle cx="128" cy="128" r="96" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+      </g>
+      <g if.bind="isRegular">
+        <circle cx="128" cy="128" r="96" fill="none" stroke="${color}" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+      </g>
+  </svg>
+</template>    
+  
