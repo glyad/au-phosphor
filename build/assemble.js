@@ -3,6 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const chalk = require("chalk");
+const voca = require("voca");
 
 const { ASSETS_PATH, COMPONENTS_PATH, INDEX_PATH } = require("./index");
 
@@ -11,17 +12,19 @@ const weights = ["thin", "light", "regular", "bold", "fill", "duotone"];
 
 function readFile(folder, pathname, weight) {
   const file = fs.readFileSync(pathname);
-  icons[folder][weight] = file
-    .toString("utf-8")
-    .replace(/^.*<\?xml.*/g, "")
-    .replace(/<svg.*/g, "")
+  let content = file.toString("utf8");
+  icons[folder][weight] = content
+    .replace(/^.*<\?xml.*?>/g, "")    
+    .replace(/<svg.*?>/g, "")
     .replace(/<\/svg>/g, "")
     .replace(
-      /<rect width="25[\d,\\.]+" height="25[\d,\\.]+" fill="none".*\/>/g,
+      // eslint-disable-next-line no-useless-escape
+      /<rect width="25[\d,\.]+" height="25[\d,\.]+" fill="none".*?\/>/g,      
       ""
     )
     .replace(/"#0+"/g, '"${color}"')
     .replace(/<title.*/, "");
+  const after = icons[folder][weight];
 }
 
 function readFiles() {
@@ -64,7 +67,7 @@ function generateComponents() {
   let fails = 0;
 
   if (fs.existsSync(COMPONENTS_PATH)) {
-    fs.rmdirSync(COMPONENTS_PATH, { recursive: true });
+    fs.rmSync(COMPONENTS_PATH, { recursive: true });
   }
   fs.mkdirSync(COMPONENTS_PATH);
 
@@ -74,24 +77,22 @@ function generateComponents() {
       .split("-")
       .map((substr) => substr.replace(/^\w/, (c) => c.toUpperCase()))
       .join("");
-    let componentString = `\
+    let classString = `\
 /* GENERATED FILE */
-import { html, svg, define } from "hybrids";
+import { PhosphorIcon } from '../ph-icon';
+import { customElement } from 'aurelia-framework';
 
-const Ph${name} = {
-  color: "currentColor",
-  size: "1em",
-  weight: "regular",
-  mirrored: false,
-  render: ({ color, size, weight, mirrored }) => html\`
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="\${size}"
-      height="\${size}"
-      fill="\${color}"
-      viewBox="0 0 256 256"
-      transform=\${mirrored ? "scale(-1, 1)" : null}
-    >
+@customElement('ph-${voca.kebabCase(name)}')
+export class Ph${name} extends PhosphorIcon {}
+`;
+    let componentString = `\
+<template>
+  <svg ref="__svg"
+        xmlns="https://www.w3.org/2000/svg"
+        width="\${size}"
+        height="\${size}"
+        fill="\${color}"
+        viewBox="0 0 256 256">
 `;
 
     if (!checkFiles(icon)) {
@@ -107,21 +108,27 @@ const Ph${name} = {
 
     for (let weight in icon) {
       componentString += `\
-      \${weight === "${weight}" && svg\`${icon[weight].trim()}\`}
+      <g if.bind="is${voca.capitalize(weight)}">
+        ${icon[weight].trim()}
+      </g>
 `;
     }
     componentString += `\
-    </svg>
-  \`,
-};
+  </svg>
+</template>    
+  `;
 
-define("ph-${key}", Ph${name});
-export default Ph${name};
-`;
     try {
       fs.writeFileSync(
-        path.join(COMPONENTS_PATH, `Ph${name}.js`),
+        path.join(COMPONENTS_PATH, `ph-${voca.kebabCase(name)}.html`),
         componentString,
+        {
+          flag: "w",
+        }
+      );
+      fs.writeFileSync(
+        path.join(COMPONENTS_PATH, `ph-${voca.kebabCase(name)}.ts`),
+        classString,
         {
           flag: "w",
         }
@@ -150,6 +157,11 @@ export default Ph${name};
 function generateExports() {
   let indexString = `\
 /* GENERATED FILE */
+import {FrameworkConfiguration} from 'aurelia-framework';
+import {PLATFORM} from 'aurelia-pal';
+
+export function configure(config: FrameworkConfiguration): void {
+  config.globalResources([
 `;
   for (let key in icons) {
     const name = key
@@ -157,9 +169,13 @@ function generateExports() {
       .map((substr) => substr.replace(/^\w/, (c) => c.toUpperCase()))
       .join("");
     indexString += `\
-export { default as Ph${name} } from "./icons/Ph${name}";
+      PLATFORM.moduleName('./elements/ph-${voca.kebabCase(name)}'),
 `;
   }
+  indexString += `\
+  ]);
+}
+  `;
   try {
     fs.writeFileSync(INDEX_PATH, indexString, {
       flag: "w",
